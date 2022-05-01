@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import IconDelete from '../Icons/IconDelete';
 import FilesContext from '../Context/FilesContext';
-import useTranscoding from '../hooks/useTransocding';
+import useTranscoding from '../hooks/useTranscoding';
 import changeExtension from '../utilities/changeExtension';
 
 const PROCESS_END = 1;
