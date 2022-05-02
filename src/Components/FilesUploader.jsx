@@ -15,7 +15,7 @@ function FilesUploader () {
   const onDrop = useCallback(acceptedFiles => {
     const accepted = acceptedFiles.map((file) => {
       const dataURL = URL.createObjectURL(file);
-      Object.assign(file, { uuid: `${uuid()}`, gif: '', dataURL, isTranscoded: false });
+      Object.assign(file, { uuid: `${uuid()}`, gif: '', dataURL, isTranscoded: false, isProcessing: false });
       return file;
     });
     setFiles([...files, ...accepted]);
