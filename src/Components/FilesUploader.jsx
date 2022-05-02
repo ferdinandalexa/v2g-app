@@ -4,9 +4,10 @@ import { v4 as uuid } from 'uuid';
 import IconUpload from '../Icons/IconUpload';
 import FilesContext from '../Context/FilesContext';
 
+import changeExtension from '../utilities/changeExtension';
+
 const DnZOptions = {
   accept: 'video/*'
-  // multiple: false
 };
 
 function FilesUploader () {
@@ -15,7 +16,14 @@ function FilesUploader () {
   const onDrop = useCallback(acceptedFiles => {
     const accepted = acceptedFiles.map((file) => {
       const dataURL = URL.createObjectURL(file);
-      Object.assign(file, { uuid: `${uuid()}`, gif: '', dataURL, isTranscoded: false, isProcessing: false });
+      Object.assign(file, {
+        uuid: `${uuid()}`,
+        gif: '',
+        gifName: changeExtension(file.name, '.gif'),
+        dataURL,
+        isTranscoded: false,
+        isProcessing: false
+      });
       return file;
     });
     setFiles([...files, ...accepted]);
