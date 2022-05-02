@@ -15,7 +15,6 @@ function useTranscoding () {
     }
 
     ffmpeg.setProgress(({ ratio }) => {
-      console.log(ratio);
       ratio <= 0 ? setProgress(0) : setProgress(ratio);
     });
 

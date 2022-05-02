@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import ProgressBar from '../Components/ProgressBar';
 import IconDelete from '../Icons/IconDelete';
 import FilesContext from '../Context/FilesContext';
 import useTranscoding from '../hooks/useTranscoding';
@@ -32,7 +33,8 @@ function File ({ uuid, name, dataURL, gif, isTranscoded }) {
   return (
     <div className='flex flex-row items-center justify-between w-full px-6 py-4'>
       <h3 className='inline-block w-full text-base text-neutral-400'>{name}</h3>
-      <span className='text-white'>{parseInt(progress * 100)}%</span>
+      {/* <span className='text-white'>{parseInt(progress * 100)}%</span> */}
+      <ProgressBar done={parseInt(progress * 100)} />
       <div className='flex flex-row items-center justify-end w-full gap-4'>
         {
           !isTranscoded &&
