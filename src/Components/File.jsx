@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
 import Transcode from '../Components/Transcode';
-import IconDelete from '../Icons/IconDelete';
+import IconDelete from './Icons/IconDelete';
 
 import FilesContext from '../Context/FilesContext';
 

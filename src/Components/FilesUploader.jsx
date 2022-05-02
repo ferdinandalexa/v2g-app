@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
-import IconUpload from '../Icons/IconUpload';
+import IconUpload from './Icons/IconUpload';
 import FilesContext from '../Context/FilesContext';
 
 import changeExtension from '../utilities/changeExtension';
