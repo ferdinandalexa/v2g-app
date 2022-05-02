@@ -1,5 +1,5 @@
 import { createContext, useEffect } from 'react';
-import useTranscoding from '../hooks/useTransocding';
+import useTranscoding from '../hooks/useTranscoding';
 
 const TranscodingContext = createContext();
 

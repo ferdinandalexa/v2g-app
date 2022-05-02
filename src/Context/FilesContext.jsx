@@ -6,7 +6,7 @@ export const FilesContextProvider = ({ children }) => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    // console.log(files);
+    console.log(files);
   }, [files]);
 
   return (
