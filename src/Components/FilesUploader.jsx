@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { v4 as uuid } from 'uuid';
 import IconUpload from './Icons/IconUpload';
@@ -6,30 +6,35 @@ import FilesContext from '../Context/FilesContext';
 
 import changeExtension from '../utilities/changeExtension';
 
-const DnZOptions = {
+const DnDZOptions = {
   accept: 'video/*'
 };
+
+function handleAcceptedFiles (acceptedFiles) {
+  const accepted = acceptedFiles.map((file) => {
+    const dataURL = URL.createObjectURL(file);
+    Object.assign(file, {
+      uuid: `${uuid()}`,
+      gif: '',
+      gifName: changeExtension(file.name, '.gif'),
+      dataURL,
+      isTranscoded: false,
+      isProcessing: false
+    });
+    return file;
+  });
+  return accepted;
+}
 
 function FilesUploader () {
   const { files, setFiles } = useContext(FilesContext);
 
-  const onDrop = useCallback(acceptedFiles => {
-    const accepted = acceptedFiles.map((file) => {
-      const dataURL = URL.createObjectURL(file);
-      Object.assign(file, {
-        uuid: `${uuid()}`,
-        gif: '',
-        gifName: changeExtension(file.name, '.gif'),
-        dataURL,
-        isTranscoded: false,
-        isProcessing: false
-      });
-      return file;
-    });
+  const onDrop = acceptedFiles => {
+    const accepted = handleAcceptedFiles(acceptedFiles);
     setFiles([...files, ...accepted]);
-  }, [files]);
+  };
 
-  const { getRootProps, getInputProps } = useDropzone({ ...DnZOptions, onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ ...DnDZOptions, onDrop });
   return (
     <div {...getRootProps()} className='px-4 py-16 transition-colors cursor-default rounded-xl bg-neutral-800 hover:bg-neutral-700'>
       <div className='flex flex-col items-center max-w-xs gap-4 mx-auto'>
