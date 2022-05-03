@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
 import Transcode from '../Components/Transcode';
+import Download from '../Components/Download';
 import IconDelete from './Icons/IconDelete';
 
 import FilesContext from '../Context/FilesContext';
@@ -30,7 +31,7 @@ function File ({ uuid, name, dataURL, gif, gifName, isTranscoded, isProcessing }
         {
           !isTranscoded
             ? <Transcode uuid={uuid} filename={name} objectURL={dataURL} />
-            : <a href={gif} download={gifName} className='w-48 px-4 py-2 text-center transition-colors rounded-md bg-lime-600 hover:bg-lime-700 text-neutral-100'>Descargar</a>
+            : <Download file={gif} filename={gifName}>Descargar</Download>
         }
       </div>
     </div>

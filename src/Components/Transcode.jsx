@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import useTranscoding from '../hooks/useTranscoding';
 
+import Button from './Button';
 import ProgressBar from './ProgressBar';
 
 import FilesContext from '../Context/FilesContext';
@@ -36,8 +37,8 @@ function Transcode ({ uuid, filename, objectURL }) {
   }, [status]);
 
   const display = {
-    Pending: <button onClick={() => doTranscode(filename, objectURL)} className='w-48 px-4 py-2 text-center transition-colors rounded-md bg-slate-600 hover:bg-slate-700 text-neutral-200'>Convert file</button>,
-    Loading: <span className='block w-48 px-4 py-2 text-center transition-colors rounded-md bg-slate-600 text-neutral-200'>Loading...</span>,
+    Pending: <Button onClick={() => doTranscode(filename, objectURL)}>Convert file</Button>,
+    Loading: <Button>Loading...</Button>,
     Transcoding: <ProgressBar done={parseInt(progress * 100)} />
   };
 
