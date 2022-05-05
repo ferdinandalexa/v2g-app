@@ -15,7 +15,7 @@ function Info () {
       </span>
       {stateModal &&
         <ModalInfo title='Attribution' onClose={closeModal}>
-          This project uses <a className='text-slate-400' href='https://github.com/ffmpegwasm/ffmpeg.wasm#readme'>FFMPEG.WASM</a>, a pure WebAssembly / JavaScript port of <a className='text-slate-400' href='https://ffmpeg.org'>FFmpeg</a>.
+          This project uses <a className='text-slate-400' href='https://github.com/ffmpegwasm/ffmpeg.wasm#readme' target='_blank' rel='noreferrer noopener'>FFMPEG.WASM</a>, a pure WebAssembly / JavaScript port of <a className='text-slate-400' href='https://ffmpeg.org' target='_blank' rel='noreferrer noopener'>FFmpeg</a>.
         </ModalInfo>}
     </>
   );
