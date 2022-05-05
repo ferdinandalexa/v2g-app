@@ -6,7 +6,8 @@ import ProgressBar from './ProgressBar';
 
 import FilesContext from '../Context/FilesContext';
 
-const PROCESS_INITIALIZED = 'Pending';
+const PROCESS_LOADING = 'Loading';
+const PROCESS_TRANSCODING = 'Transcoding';
 const PROCESS_END = 'Done';
 
 function Transcode ({ uuid, filename, objectURL }) {
@@ -25,14 +26,13 @@ function Transcode ({ uuid, filename, objectURL }) {
       setFiles(upadatedFiles);
     }
 
-    if (status !== PROCESS_INITIALIZED && status !== PROCESS_END) {
+    if (status === PROCESS_TRANSCODING || status === PROCESS_LOADING) {
       const upadatedFiles = files.map(file => {
         return file.uuid === uuid
           ? Object.assign(file, { isProcessing: true })
           : file;
       });
       setFiles(upadatedFiles);
-      console.log(files);
     }
   }, [status]);
 
