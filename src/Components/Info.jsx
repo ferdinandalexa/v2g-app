@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ExtLink from './ExtLink';
 import IconInfo from './Icons/IconInfo';
 import ModalInfo from './ModalInfo';
 
@@ -15,7 +16,7 @@ function Info () {
       </span>
       {stateModal &&
         <ModalInfo title='Attribution' onClose={closeModal}>
-          This project uses <a className='text-slate-400' href='https://github.com/ffmpegwasm/ffmpeg.wasm#readme' target='_blank' rel='noreferrer noopener'>FFMPEG.WASM</a>, a pure WebAssembly / JavaScript port of <a className='text-slate-400' href='https://ffmpeg.org' target='_blank' rel='noreferrer noopener'>FFmpeg</a>.
+          This project uses <ExtLink url='https://github.com/ffmpegwasm/ffmpeg.wasm#readme'>FFMPEG.WASM</ExtLink>, a pure WebAssembly / JavaScript port of <ExtLink url='https://ffmpeg.org'>FFmpeg</ExtLink>.
         </ModalInfo>}
     </>
   );
