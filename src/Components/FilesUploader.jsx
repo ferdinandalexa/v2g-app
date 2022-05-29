@@ -4,23 +4,26 @@ import { v4 as uuid } from 'uuid';
 import IconUpload from './Icons/IconUpload';
 import FilesContext from '../Context/FilesContext';
 
-import changeExtension from '../utilities/changeExtension';
+import { splitPath } from '../utilities/changeExtension';
 
 const DnDZOptions = {
   accept: 'video/*'
 };
 
 function handleAcceptedFiles (acceptedFiles) {
-  const accepted = acceptedFiles.map((file) => {
-    const dataURL = URL.createObjectURL(file);
-    Object.assign(file, {
+  const accepted = acceptedFiles.map((droppedFile) => {
+    const dataURL = URL.createObjectURL(droppedFile);
+    const { name, extension } = splitPath(droppedFile.name);
+    const file = {
       uuid: `${uuid()}`,
-      gif: '',
-      gifName: changeExtension(file.name, '.gif'),
+      name,
+      extension,
       dataURL,
-      isTranscoded: false,
-      isProcessing: false
-    });
+      gif: null
+    };
+
+    console.log(file);
+
     return file;
   });
   return accepted;

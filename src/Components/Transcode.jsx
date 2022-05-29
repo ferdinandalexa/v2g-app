@@ -1,17 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useTranscoding from '../hooks/useTranscoding';
 
 import Button from './Button';
 import ProgressBar from './ProgressBar';
+import Download from './Download';
 
 import FilesContext from '../Context/FilesContext';
 
-const PROCESS_LOADING = 'Loading';
-const PROCESS_TRANSCODING = 'Transcoding';
 const PROCESS_END = 'Done';
 
-function Transcode ({ uuid, filename, objectURL }) {
+function Transcode ({ uuid, filename, from, objectURL, gif }) {
   const { files, setFiles } = useContext(FilesContext);
+  const [hasGif, setHasGif] = useState(false);
   const [transcodedFile, doTranscode, progress, status] = useTranscoding();
 
   useEffect(() => {
@@ -20,29 +20,27 @@ function Transcode ({ uuid, filename, objectURL }) {
       const urlBloblGIF = URL.createObjectURL(blobGIF);
       const upadatedFiles = files.map(file => {
         return file.uuid === uuid
-          ? Object.assign(file, { gif: urlBloblGIF, isTranscoded: true, isProcessing: false })
+          ? Object.assign(file, { gif: urlBloblGIF })
           : file;
       });
       setFiles(upadatedFiles);
     }
 
-    if (status === PROCESS_TRANSCODING || status === PROCESS_LOADING) {
-      const upadatedFiles = files.map(file => {
-        return file.uuid === uuid
-          ? Object.assign(file, { isProcessing: true })
-          : file;
-      });
-      setFiles(upadatedFiles);
-    }
-  }, [status]);
+    if (gif) setHasGif(true);
+  }, [status, gif]);
 
   const display = {
-    Pending: <Button onClick={() => doTranscode(filename, objectURL)}>Convert file</Button>,
+    Pending: <Button onClick={() => doTranscode(`${filename}.${from}`, objectURL)}>Convert file</Button>,
     Loading: <Button>Loading...</Button>,
-    Transcoding: <ProgressBar done={parseInt(progress * 100)} />
+    Transcoding: <ProgressBar done={parseInt(progress * 100)} />,
+    Done: <Download file={gif} filename={`${filename}.gif`}>Descargar</Download>
   };
 
-  return display[status];
+  return (
+    hasGif
+      ? <Download file={gif} filename={`${filename}.gif`}>Descargar</Download>
+      : display[status]
+  );
 }
 
 export default Transcode;
