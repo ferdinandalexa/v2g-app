@@ -4,7 +4,7 @@ import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 import TranscodeContext from '../Context/TranscodeContext';
 
 const ffmpeg = createFFmpeg({
-  corePath: './node_modules/@ffmpeg/core/dist/ffmpeg-core.js'
+  corePath: '/static/js/ffmpeg-core.js'
 });
 
 function useTranscoding () {
