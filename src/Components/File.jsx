@@ -1,25 +1,33 @@
 import { useContext, useEffect, useState } from 'react';
 
+import Button from '../Components/Button';
 import Transcode from '../Components/Transcode';
 import IconDelete from './Icons/IconDelete';
 
 import FilesContext from '../Context/FilesContext';
+import TranscodeContext from '../Context/TranscodeContext';
 
 function File ({ uuid, name, extension, dataURL, gif }) {
   const [enableDelete, setEnableDelete] = useState(true);
+  const [enableTranscode, setEnableTranscode] = useState(true);
   const [isTranscoded, setTranscoded] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
+  const { isProcessing, currentUuid } = useContext(TranscodeContext);
 
   const deleteFile = () => {
     setFiles(files.filter(file => file.uuid !== uuid));
   };
 
   useEffect(() => {
+    if (isProcessing) {
+      if (uuid !== currentUuid) setEnableTranscode(false);
+    } else setEnableTranscode(true);
+
     if (gif) {
       setEnableDelete(false);
       setTranscoded(true);
     }
-  }, [gif]);
+  }, [gif, isProcessing, currentUuid]);
 
   return (
     <div className='flex flex-row flex-wrap items-center justify-between w-full px-6 py-4'>
@@ -31,7 +39,11 @@ function File ({ uuid, name, extension, dataURL, gif }) {
               <IconDelete className='w-full h-full p-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-red-500 hover:bg-neutral-700' />
             </button>
         }
-        <Transcode uuid={uuid} filename={name} from={extension} gif={gif} objectURL={dataURL} />
+        {
+          enableTranscode
+            ? <Transcode uuid={uuid} filename={name} from={extension} gif={gif} objectURL={dataURL} />
+            : <Button disabled>Convert file</Button>
+        }
       </div>
     </div>
   );

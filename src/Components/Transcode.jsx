@@ -30,7 +30,7 @@ function Transcode ({ uuid, filename, from, objectURL, gif }) {
   }, [status, gif]);
 
   const display = {
-    Pending: <Button onClick={() => doTranscode(`${filename}.${from}`, objectURL)}>Convert file</Button>,
+    Pending: <Button onClick={() => doTranscode(uuid, `${filename}.${from}`, objectURL)}>Convert file</Button>,
     Loading: <Button>Loading...</Button>,
     Transcoding: <ProgressBar done={parseInt(progress * 100)} />,
     Done: <Download file={gif} filename={`${filename}.gif`}>Descargar</Download>
