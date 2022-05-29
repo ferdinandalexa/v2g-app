@@ -27,7 +27,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
       setEnableDelete(false);
       setTranscoded(true);
     }
-  }, [gif, isProcessing, currentUuid]);
+  }, [gif, isProcessing]);
 
   return (
     <div className='flex flex-row flex-wrap items-center justify-between w-full px-6 py-4'>

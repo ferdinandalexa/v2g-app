@@ -27,7 +27,7 @@ function FilesList () {
         );
       })}
       <div className='flex flex-row items-center justify-center gap-4 px-4 py-2'>
-        <Button className='flex-auto'>Convert all</Button>
+        {/* <Button className='flex-auto'>Convert all</Button> */}
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'
