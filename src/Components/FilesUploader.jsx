@@ -22,8 +22,6 @@ function handleAcceptedFiles (acceptedFiles) {
       gif: null
     };
 
-    console.log(file);
-
     return file;
   });
   return accepted;
