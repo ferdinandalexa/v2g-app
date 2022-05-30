@@ -19,7 +19,6 @@ function File ({ uuid, name, extension, dataURL, gif }) {
   const [enableTranscode, setEnableTranscode] = useState(true);
   const [isTranscoded, setTranscoded] = useState(false);
   const [hasGif, setHasGif] = useState(false);
-  const [gifURL, setURL] = useState();
 
   const deleteFile = () => {
     setFiles(files.filter(file => file.uuid !== uuid));
@@ -33,7 +32,6 @@ function File ({ uuid, name, extension, dataURL, gif }) {
     if (gif) {
       setTranscoded(true);
       setHasGif(true);
-      setURL(gif);
     }
   }, [isProcessing]);
 

@@ -36,8 +36,8 @@ function useTranscoding () {
 
   async function doTranscode (uuid, filename, objectURL) {
     if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load();
       setStatus('Loading');
+      await ffmpeg.load();
     }
 
     setCurrentUuid(uuid);
