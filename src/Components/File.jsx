@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import Button from './Button';
 import ProgressBar from './ProgressBar';
 import Download from './Download';
+import ExtLink from './ExtLink';
 import IconDelete from './Icons/IconDelete';
 import IconEye from './Icons/IconEye';
 
@@ -18,13 +19,10 @@ function File ({ uuid, name, extension, dataURL, gif }) {
   const [enableTranscode, setEnableTranscode] = useState(true);
   const [isTranscoded, setTranscoded] = useState(false);
   const [hasGif, setHasGif] = useState(false);
+  const [gifURL, setURL] = useState();
 
   const deleteFile = () => {
     setFiles(files.filter(file => file.uuid !== uuid));
-  };
-
-  const openPreview = () => {
-    window.open(gif, '_blank');
   };
 
   useEffect(() => {
@@ -35,6 +33,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
     if (gif) {
       setTranscoded(true);
       setHasGif(true);
+      setURL(gif);
     }
   }, [isProcessing]);
 
@@ -53,12 +52,12 @@ function File ({ uuid, name, extension, dataURL, gif }) {
           <IconDelete className='w-full h-full p-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-red-500 hover:bg-neutral-700' />
         </button>
         {hasGif &&
-          <button title='See the GIF preview at another tab' className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9' onClick={openPreview}>
+          <ExtLink url={gif} type='image/gif' title='See the GIF preview at another tab' className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9'>
             <IconEye className='w-full h-full px-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-yellow-500 hover:bg-neutral-700 ' />
-          </button>}
+          </ExtLink>}
         {
           hasGif
-            ? <Download file={gif} filename={`${name}.gif`}>Descargar</Download>
+            ? <Download file={gif} filename={`${name}.gif`} type='image/gif'>Descargar</Download>
             : enableTranscode ? display[status] : display.Pending
         }
       </div>
