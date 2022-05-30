@@ -2,23 +2,17 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import FilesUploader from './Components/FilesUploader';
 import FilesList from './Components/FilesList';
-import { FilesContextProvider } from './Context/FilesContext';
-import { TranscodeContextProvider } from './Context/TranscodeContext';
-import { ProcessContextProvider } from './Context/ProcessContext';
+import Transcode from './Containers/Transcode';
 
 function App () {
   return (
     <div className='h-full max-w-screen-md mx-auto'>
       <Header />
       <main className='flex flex-col gap-4 my-4'>
-        <FilesContextProvider>
-          <ProcessContextProvider>
-            <TranscodeContextProvider>
-              <FilesUploader />
-              <FilesList />
-            </TranscodeContextProvider>
-          </ProcessContextProvider>
-        </FilesContextProvider>
+        <Transcode>
+          <FilesUploader />
+          <FilesList />
+        </Transcode>
       </main>
       <Footer />
     </div>
