@@ -19,7 +19,6 @@ function Transcode ({ uuid, filename, from, objectURL, gif }) {
       const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
       const urlBloblGIF = URL.createObjectURL(blobGIF);
       const upadatedFiles = files.map(file => {
-        console.log(file.gif);
         return file.uuid === uuid
           ? Object.assign(file, { gif: urlBloblGIF })
           : file;

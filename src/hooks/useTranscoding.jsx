@@ -15,17 +15,19 @@ function useTranscoding () {
 
   async function doTranscode (uuid, filename, objectURL) {
     if (!ffmpeg.isLoaded()) {
-      await ffmpeg.load();
       setStatus('Loading');
-      setProcessing(true);
-      setCurrentUuid(uuid);
+      await ffmpeg.load();
     }
 
     ffmpeg.setProgress(({ ratio }) => {
       if (ratio > 0) {
         setProgress(ratio);
         setStatus('Transcoding');
-      } else { setProgress(0); }
+      } else {
+        setProgress(0);
+        setProcessing(true);
+        setCurrentUuid(uuid);
+      }
     });
 
     const fileBinaryData = await fetchFile(objectURL);
@@ -34,6 +36,7 @@ function useTranscoding () {
     setStatus('Done');
     setProcessing(false);
     setCurrentUuid();
+    setProgress(0);
     setTrascodedFile(ffmpeg.FS('readFile', 'image.gif'));
   }
 
