@@ -30,14 +30,14 @@ function FilesList () {
         );
       })}
       <div className='flex flex-row items-center justify-center gap-4 px-4 py-2'>
-        <Button
+        {/* <Button
           onClick={async () => {
             const { uuid, name, extension, dataURL } = files[0];
             doTranscode(uuid, `${name}.${extension}`, dataURL);
           }}
           className='flex-auto'
         >Convert all
-        </Button>
+        </Button> */}
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'

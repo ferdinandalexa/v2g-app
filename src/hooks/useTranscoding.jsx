@@ -19,7 +19,6 @@ function useTranscoding () {
 
   useEffect(() => {
     if (status === PROCESS_DONE) {
-      console.log(currentUuid);
       const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
       const urlBloblGIF = URL.createObjectURL(blobGIF);
       const upadatedFiles = files.map(file => {

@@ -37,7 +37,7 @@ function FilesUploader () {
 
   const { getRootProps, getInputProps } = useDropzone({ ...DnDZOptions, onDrop });
   return (
-    <div {...getRootProps()} className='px-4 py-16 transition-colors cursor-default rounded-xl bg-neutral-800 hover:bg-neutral-700'>
+    <section {...getRootProps()} className='px-4 py-16 transition-colors cursor-default rounded-xl bg-neutral-800 hover:bg-neutral-700'>
       <div className='flex flex-col items-center max-w-xs gap-4 mx-auto'>
         <div className='text-center'>
           <span className='inline-block p-6 rounded-full bg-neutral-700 w-max'>
@@ -48,7 +48,7 @@ function FilesUploader () {
         <button className='w-full px-6 py-3 rounded-lg shadow-2xl bg-slate-600 text-neutral-50 shadow-neutral-800'>Click to select files</button>
       </div>
       <input type='file' {...getInputProps()} className='hidden' />
-    </div>
+    </section>
   );
 }
 

@@ -4,6 +4,7 @@ import Button from './Button';
 import ProgressBar from './ProgressBar';
 import Download from './Download';
 import IconDelete from './Icons/IconDelete';
+import IconEye from './Icons/IconEye';
 
 import FilesContext from '../Context/FilesContext';
 import TranscodeContext from '../Context/TranscodeContext';
@@ -20,6 +21,10 @@ function File ({ uuid, name, extension, dataURL, gif }) {
 
   const deleteFile = () => {
     setFiles(files.filter(file => file.uuid !== uuid));
+  };
+
+  const openPreview = () => {
+    window.open(gif, '_blank');
   };
 
   useEffect(() => {
@@ -43,11 +48,14 @@ function File ({ uuid, name, extension, dataURL, gif }) {
   return (
     <div className='flex flex-row flex-wrap items-center justify-between w-full px-6 py-4'>
       <h3 className='inline-block w-full text-base text-neutral-400 sm:w-max'>{!isTranscoded ? `${name}.${extension}` : `${name}.gif`}</h3>
-      {/* {hasGif ? <img src={gif} alt={name + extension} className='inline-block w-12 h-12 ml-4' /> : <span className='w-12 h-12' />} */}
-      <div className='flex flex-row-reverse items-center justify-end flex-grow gap-4 mt-4 sm:justify-end sm:flex-row sm:mt-0 sm:ml-4'>
-        <button className='inline-block align-middle transition-colors rounded-full w-9 h-9' onClick={deleteFile}>
+      <div className='flex flex-row-reverse items-center justify-end flex-grow gap-3 mt-4 sm:justify-end sm:flex-row sm:mt-0 sm:ml-4'>
+        <button title={`Remove ${name}.${extension} file`} className='inline-block align-middle transition-colors rounded-full w-9 h-9' onClick={deleteFile}>
           <IconDelete className='w-full h-full p-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-red-500 hover:bg-neutral-700' />
         </button>
+        {hasGif &&
+          <button title='See the GIF preview at another tab' className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9' onClick={openPreview}>
+            <IconEye className='w-full h-full px-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-yellow-500 hover:bg-neutral-700 ' />
+          </button>}
         {
           hasGif
             ? <Download file={gif} filename={`${name}.gif`}>Descargar</Download>
