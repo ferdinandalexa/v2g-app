@@ -12,7 +12,7 @@ function Info () {
   return (
     <>
       <span onClick={openModal} className='relative z-10'>
-        <IconInfo className='fill-neutral-500 hover:fill-blue-300 transition-colors' width='20px' height='20px' />
+        <IconInfo className='transition-colors fill-neutral-500 hover:fill-blue-300' width='20px' height='20px' />
       </span>
       {stateModal &&
         <ModalInfo title='Attribution' onClose={closeModal}>
