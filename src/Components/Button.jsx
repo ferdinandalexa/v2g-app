@@ -9,7 +9,7 @@ function Button ({ className, onClick, variant = 'contained', disabled = false, 
   return (
     <button
       onClick={onClick}
-      className={`${className} w-48 px-4 py-2 text-center transition-colors rounded-md border-2 disabled:opacity-50 ${getVariant[variant]}`}
+      className={`${className} w-48 px-4 py-2 text-center transition-colors duration-75 rounded-md border-2 disabled:opacity-50 ${getVariant[variant]}`}
       disabled={disabled}
     >
       {children}

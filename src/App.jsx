@@ -4,6 +4,7 @@ import FilesUploader from './Components/FilesUploader';
 import FilesList from './Components/FilesList';
 import { FilesContextProvider } from './Context/FilesContext';
 import { TranscodeContextProvider } from './Context/TranscodeContext';
+import { ProcessContextProvider } from './Context/ProcessContext';
 
 function App () {
   return (
@@ -11,10 +12,12 @@ function App () {
       <Header />
       <main className='flex flex-col gap-4 my-4'>
         <FilesContextProvider>
-          <FilesUploader />
-          <TranscodeContextProvider>
-            <FilesList />
-          </TranscodeContextProvider>
+          <ProcessContextProvider>
+            <TranscodeContextProvider>
+              <FilesUploader />
+              <FilesList />
+            </TranscodeContextProvider>
+          </ProcessContextProvider>
         </FilesContextProvider>
       </main>
       <Footer />

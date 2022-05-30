@@ -1,13 +1,18 @@
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
+import useTranscoding from '../hooks/useTranscoding';
 
 const TranscodeContext = createContext();
 
 export const TranscodeContextProvider = ({ children }) => {
-  const [isProcessing, setProcessing] = useState(false);
-  const [currentUuid, setCurrentUuid] = useState();
-
+  const { doTranscode, progress, status } = useTranscoding();
   return (
-    <TranscodeContext.Provider value={{ isProcessing, setProcessing, currentUuid, setCurrentUuid }}>
+    <TranscodeContext.Provider
+      value={{
+        doTranscode,
+        progress,
+        status
+      }}
+    >
       {children}
     </TranscodeContext.Provider>
   );

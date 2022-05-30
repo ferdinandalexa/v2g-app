@@ -1,31 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useTranscoding from '../hooks/useTranscoding';
 
 import Button from './Button';
 import ProgressBar from './ProgressBar';
 import Download from './Download';
 
-import FilesContext from '../Context/FilesContext';
+// import FilesContext from '../Context/FilesContext';
 
-const PROCESS_END = 'Done';
+// const PROCESS_END = 'Done';
 
 function Transcode ({ uuid, filename, from, objectURL, gif }) {
-  const { files, setFiles } = useContext(FilesContext);
+  // const { files, setFiles } = useContext(FilesContext);
   const [hasGif, setHasGif] = useState(false);
-  const [transcodedFile, doTranscode, progress, status] = useTranscoding();
+  const { doTranscode, progress, status } = useTranscoding();
 
   useEffect(() => {
-    if (status === PROCESS_END) {
-      const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
-      const urlBloblGIF = URL.createObjectURL(blobGIF);
-      const upadatedFiles = files.map(file => {
-        return file.uuid === uuid
-          ? Object.assign(file, { gif: urlBloblGIF })
-          : file;
-      });
-      setFiles(upadatedFiles);
-    }
-
     if (gif) setHasGif(true);
   }, [status]);
 

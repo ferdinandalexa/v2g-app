@@ -1,11 +1,14 @@
 import File from './File';
 import Button from './Button';
-import FilesContext from '../Context/FilesContext';
 import { useContext, useEffect, useState } from 'react';
+
+import FilesContext from '../Context/FilesContext';
+import TranscodeContext from '../Context/TranscodeContext';
 
 function FilesList () {
   const [disabled, setDisabled] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
+  const { doTranscode } = useContext(TranscodeContext);
 
   useEffect(() => {
     files.length > 0 ? setDisabled(false) : setDisabled(true);
@@ -27,7 +30,14 @@ function FilesList () {
         );
       })}
       <div className='flex flex-row items-center justify-center gap-4 px-4 py-2'>
-        {/* <Button className='flex-auto'>Convert all</Button> */}
+        <Button
+          onClick={async () => {
+            const { uuid, name, extension, dataURL } = files[0];
+            doTranscode(uuid, `${name}.${extension}`, dataURL);
+          }}
+          className='flex-auto'
+        >Convert all
+        </Button>
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'
