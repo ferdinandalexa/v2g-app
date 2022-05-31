@@ -33,7 +33,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
       setTranscoded(true);
       setHasGif(true);
     }
-  }, [isProcessing]);
+  }, [isProcessing, gif]);
 
   const display = {
     Pending: <Button onClick={() => doTranscode(uuid, `${name}.${extension}`, dataURL)} disabled={!enableTranscode}>Convert file</Button>,

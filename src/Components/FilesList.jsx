@@ -8,7 +8,7 @@ import TranscodeContext from '../Context/TranscodeContext';
 function FilesList () {
   const [disabled, setDisabled] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
-  const { doTranscode } = useContext(TranscodeContext);
+  const { totalTranscoded, transcodeAllFiles } = useContext(TranscodeContext);
 
   useEffect(() => {
     files.length > 0 ? setDisabled(false) : setDisabled(true);
@@ -30,14 +30,14 @@ function FilesList () {
         );
       })}
       <div className='flex flex-row items-center justify-center gap-4 px-4 py-2'>
-        {/* <Button
+        <Button
           onClick={async () => {
-            const { uuid, name, extension, dataURL } = files[0];
-            doTranscode(uuid, `${name}.${extension}`, dataURL);
+            await transcodeAllFiles();
           }}
           className='flex-auto'
+          disabled={files.length < 1 || totalTranscoded === files.length}
         >Convert all
-        </Button> */}
+        </Button>
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'

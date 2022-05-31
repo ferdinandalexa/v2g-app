@@ -29,8 +29,8 @@ function useTranscoding () {
       setFiles(upadatedFiles);
       setProcessing(false);
       setCurrentUuid();
-      setStatus('Pending');
       setProgress(0);
+      setStatus('Pending');
     }
   }, [status]);
 
@@ -40,8 +40,8 @@ function useTranscoding () {
       await ffmpeg.load();
     }
 
-    setCurrentUuid(uuid);
     setProcessing(true);
+    setCurrentUuid(uuid);
 
     ffmpeg.setProgress(({ ratio }) => {
       if (ratio > 0.01) {
@@ -50,16 +50,26 @@ function useTranscoding () {
       } else {
         setProgress(0);
       }
+
+      if (ratio >= 1) {
+        setTrascodedFile(ffmpeg.FS('readFile', 'image.gif'));
+        setStatus('Done');
+      }
     });
 
     const fileBinaryData = await fetchFile(objectURL);
+
     ffmpeg.FS('writeFile', filename, fileBinaryData);
     await ffmpeg.run('-i', filename, 'image.gif');
-    setStatus('Done');
-    setTrascodedFile(ffmpeg.FS('readFile', 'image.gif'));
   }
 
-  return { transcodedFile, doTranscode, progress, status };
+  async function transcodeAllFiles () {
+    for (const { uuid, name, extension, dataURL, gif } of files) {
+      if (!gif) await doTranscode(uuid, `${name}.${extension}`, dataURL);
+    }
+  }
+
+  return { transcodedFile, doTranscode, transcodeAllFiles, progress, status };
 }
 
 export default useTranscoding;
