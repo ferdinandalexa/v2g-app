@@ -59,7 +59,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
           </Link>}
         {
           hasGif
-            ? <Download file={gif} filename={`${name}.gif`} type='image/gif'>Descargar</Download>
+            ? <Download file={gif} filename={`${name}.gif`} type='image/gif'>Download</Download>
             : enableTranscode ? display[status] : display.Pending
         }
       </div>
