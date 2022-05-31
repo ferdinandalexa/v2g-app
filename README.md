@@ -7,7 +7,9 @@ v2g app uses [FFMPEG.WASM](https://github.com/ffmpegwasm/ffmpeg.wasm#readme), a 
 ## To-do list
 - [X] Transcode all videos functionality.
 - [ ] Multithreading transcode.
-- [ ] Routes to preview files.
+- [X] Routes to preview files.
+- [ ] PWA.
+
 
 ## LICENCE
 [Apache-2.0 license](LICENSE)
