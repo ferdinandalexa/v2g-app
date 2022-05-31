@@ -4,7 +4,7 @@ function Download ({ file, filename, type, className, children = 'Download' }) {
       href={file}
       download={filename}
       type={type}
-      className={`w-48 px-4 py-2 text-center transition-colors rounded-md bg-lime-600 hover:bg-lime-700 text-neutral-100 ${className}`}
+      className={`w-48 px-4 py-2 text-center transition-colors rounded-md bg-green-600 hover:bg-green-700 text-neutral-100 ${className}`}
     >
       {children}
     </a>

@@ -45,7 +45,7 @@ function FilesUploader () {
           </span>
           <p className='text-lg text-neutral-300'>Drag and drop some files here, or</p>
         </div>
-        <button className='w-full px-6 py-3 rounded-lg shadow-2xl bg-slate-600 text-neutral-50 shadow-neutral-800'>Click to select files</button>
+        <button className='w-full px-6 py-3 bg-indigo-500 rounded-lg shadow-2xl text-neutral-50 shadow-neutral-800'>Click to select files</button>
       </div>
       <input type='file' {...getInputProps()} className='hidden' />
     </section>

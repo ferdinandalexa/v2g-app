@@ -29,7 +29,7 @@ function FilesList () {
           />
         );
       })}
-      <div className='flex flex-row items-center justify-center gap-4 px-4 py-2'>
+      <div className='flex flex-row-reverse items-center justify-center gap-4 px-4 py-2 pt-4'>
         <Button
           onClick={async () => {
             await transcodeAllFiles();
