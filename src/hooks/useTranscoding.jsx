@@ -5,7 +5,7 @@ import FilesContext from '../Context/FilesContext';
 import ProcessContext from '../Context/ProcessContext';
 
 const ffmpeg = createFFmpeg({
-  corePath: '/static/ffmpeg-core.js'
+  corePath: '/js/ffmpeg-core.js'
 });
 
 const PROCESS_DONE = 'Done';
