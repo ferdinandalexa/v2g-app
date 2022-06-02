@@ -16,7 +16,7 @@ import ProcessContext from '../Context/ProcessContext';
 function File ({ uuid, name, extension, dataURL, gif }) {
   const { files, setFiles } = useContext(FilesContext);
   const { isProcessing, currentUuid } = useContext(ProcessContext);
-  const { doTranscode, progress, status } = useContext(TranscodeContext);
+  const { setTotalTranscoded, doTranscode, progress, status } = useContext(TranscodeContext);
 
   const [enableTranscode, setEnableTranscode] = useState(true);
   const [isTranscoded, setTranscoded] = useState(false);
@@ -24,6 +24,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
 
   const deleteFile = () => {
     setFiles(files.filter(file => file.uuid !== uuid));
+    setTotalTranscoded(total => total - 1);
   };
 
   useEffect(() => {
