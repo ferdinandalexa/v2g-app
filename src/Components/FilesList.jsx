@@ -3,11 +3,13 @@ import Button from './Button';
 import { useContext, useEffect, useState } from 'react';
 
 import FilesContext from '../Context/FilesContext';
+import ProcessContext from '../Context/ProcessContext';
 import TranscodeContext from '../Context/TranscodeContext';
 
 function FilesList () {
   const [disabled, setDisabled] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
+  const { isProcessing } = useContext(ProcessContext);
   const { totalTranscoded, transcodeAllFiles } = useContext(TranscodeContext);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function FilesList () {
             await transcodeAllFiles();
           }}
           className='flex-auto'
-          disabled={files.length < 1 || totalTranscoded === files.length}
+          disabled={files.length < 1 || totalTranscoded === files.length || isProcessing}
         >Convert all
         </Button>
         <Button
