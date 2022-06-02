@@ -48,7 +48,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
     <div className='flex flex-row flex-wrap items-center justify-between w-full px-6 py-4'>
       <h3 className='inline-block w-full text-base text-neutral-400 sm:w-max'>{!isTranscoded ? `${name}.${extension}` : `${name}.gif`}</h3>
       <div className='flex flex-row-reverse items-center justify-end flex-grow gap-3 mt-4 sm:justify-end sm:flex-row sm:mt-0 sm:ml-4'>
-        {!isProcessing &&
+        {(!isProcessing && status !== 'Loading') &&
           <button title={`Remove ${name}.${extension} file`} className='inline-block align-middle transition-colors rounded-full w-9 h-9' onClick={deleteFile}>
             <IconDelete className='w-full h-full p-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-red-500 hover:bg-neutral-700' />
           </button>}
