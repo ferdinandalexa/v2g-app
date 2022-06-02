@@ -38,6 +38,7 @@ function useTranscoding () {
     if (!ffmpeg.isLoaded()) {
       setStatus('Loading');
       await ffmpeg.load();
+      setProcessing(true);
     }
 
     setProcessing(true);
