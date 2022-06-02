@@ -1,7 +1,3 @@
-/* *
-  todo Disable "Convert all button when ffmpeg is loading"
-*/
-
 import File from './File';
 import Button from './Button';
 import { useContext, useEffect, useState } from 'react';
@@ -18,7 +14,8 @@ function FilesList () {
 
   useEffect(() => {
     files.length > 0 ? setDisabled(false) : setDisabled(true);
-  }, [files]);
+    if (isProcessing || status === 'Loading') setDisabled(true);
+  }, [files, isProcessing, status]);
 
   return (
     <aside className='w-full p-2 overflow-hidden divide-y divide-opacity-30 rounded-xl bg-neutral-800 divide-neutral-700 '>
@@ -41,14 +38,14 @@ function FilesList () {
             await transcodeAllFiles();
           }}
           className='flex-auto'
-          disabled={files.length < 1 || totalTranscoded === files.length || isProcessing || status === 'Loading'}
+          disabled={disabled || totalTranscoded === files.length}
         >Convert all
         </Button>
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'
           className='flex-auto'
-          disabled={disabled || isProcessing || status === 'Loading'}
+          disabled={disabled}
         >
           Remove files
         </Button>
