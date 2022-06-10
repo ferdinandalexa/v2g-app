@@ -7,7 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "commit": "npx cz"
+    "cm": "gitmoji -c"
   },
   "dependencies": {
     "@ffmpeg/core": "0.10.0",
@@ -24,9 +24,9 @@
     "@types/react-dom": "18.0.0",
     "@vitejs/plugin-react": "1.3.0",
     "autoprefixer": "10.4.4",
-    "commitlint": "11.0.0",
+    "commitlint": "^11.0.0",
     "commitlint-config-gitmoji": "^2.2.5",
-    "cz-emoji": "1.3.1",
+    "gitmoji-cli": "^5.0.1",
     "husky": "^8.0.1",
     "postcss": "8.4.12",
     "semistandard": "16.0.1",
@@ -40,10 +40,5 @@
       "semistandard",
       "standard-jsx"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-emoji"
-    }
   }
 }
