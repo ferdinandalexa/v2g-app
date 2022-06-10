@@ -13,24 +13,35 @@ const PROCESS_DONE = 'Done';
 function useTranscoding () {
   const { files, setFiles } = useContext(FilesContext);
   const { setProcessing, currentUuid, setCurrentUuid } = useContext(ProcessContext);
+
   const [status, setStatus] = useState('Pending');
   const [transcodedFile, setTrascodedFile] = useState({});
   const [progress, setProgress] = useState(0);
 
+  const updateFiles = () => {
+    const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
+    const urlBloblGIF = URL.createObjectURL(blobGIF);
+    const upadatedFiles = files.map(file => {
+      console.log(file.uuid, currentUuid);
+      return file.uuid === currentUuid
+        ? Object.assign(file, { gif: urlBloblGIF })
+        : file;
+    });
+    console.log(upadatedFiles);
+    setFiles(upadatedFiles);
+  };
+
+  const restartStates = () => {
+    setProcessing(false);
+    setCurrentUuid();
+    setProgress(0);
+    setStatus('Pending');
+  };
+
   useEffect(() => {
     if (status === PROCESS_DONE) {
-      const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
-      const urlBloblGIF = URL.createObjectURL(blobGIF);
-      const upadatedFiles = files.map(file => {
-        return file.uuid === currentUuid
-          ? Object.assign(file, { gif: urlBloblGIF })
-          : file;
-      });
-      setFiles(upadatedFiles);
-      setProcessing(false);
-      setCurrentUuid();
-      setProgress(0);
-      setStatus('Pending');
+      updateFiles();
+      restartStates();
     }
   }, [status]);
 
@@ -38,7 +49,6 @@ function useTranscoding () {
     if (!ffmpeg.isLoaded()) {
       setStatus('Loading');
       await ffmpeg.load();
-      setProcessing(true);
     }
 
     setProcessing(true);
