@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 
-import FilesContext from '../Context/FilesContext';
 import ProcessContext from '../Context/ProcessContext';
+
+import useGif from './useGif';
 
 const ffmpeg = createFFmpeg({
   corePath: '/js/ffmpeg-core.js'
@@ -11,25 +12,13 @@ const ffmpeg = createFFmpeg({
 const PROCESS_DONE = 'Done';
 
 function useTranscoding () {
-  const { files, setFiles } = useContext(FilesContext);
-  const { setProcessing, currentUuid, setCurrentUuid } = useContext(ProcessContext);
+  const { setProcessing, setCurrentUuid } = useContext(ProcessContext);
+
+  const { setGif } = useGif();
 
   const [status, setStatus] = useState('Pending');
   const [transcodedFile, setTrascodedFile] = useState({});
   const [progress, setProgress] = useState(0);
-
-  const updateFiles = () => {
-    const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
-    const urlBloblGIF = URL.createObjectURL(blobGIF);
-    const upadatedFiles = files.map(file => {
-      console.log(file.uuid, currentUuid);
-      return file.uuid === currentUuid
-        ? Object.assign(file, { gif: urlBloblGIF })
-        : file;
-    });
-    console.log(upadatedFiles);
-    setFiles(upadatedFiles);
-  };
 
   const restartStates = () => {
     setProcessing(false);
@@ -40,7 +29,7 @@ function useTranscoding () {
 
   useEffect(() => {
     if (status === PROCESS_DONE) {
-      updateFiles();
+      setGif(transcodedFile);
       restartStates();
     }
   }, [status]);
@@ -74,13 +63,7 @@ function useTranscoding () {
     await ffmpeg.run('-i', filename, 'image.gif');
   }
 
-  async function transcodeAllFiles () {
-    for (const { uuid, name, extension, dataURL, gif } of files) {
-      if (!gif) await doTranscode(uuid, `${name}.${extension}`, dataURL);
-    }
-  }
-
-  return { transcodedFile, doTranscode, transcodeAllFiles, progress, status };
+  return { transcodedFile, doTranscode, progress, status };
 }
 
 export default useTranscoding;

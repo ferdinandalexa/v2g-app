@@ -1,13 +1,22 @@
-import { createContext, useEffect, useState } from 'react';
+import { useContext, createContext, useEffect, useState } from 'react';
 import useTranscoding from '../hooks/useTranscoding';
+
+import FilesContext from './FilesContext';
 
 const TranscodeContext = createContext();
 
 const PROCESS_DONE = 'Done';
 
 export const TranscodeContextProvider = ({ children }) => {
+  const { files } = useContext(FilesContext);
+  const { doTranscode, progress, status } = useTranscoding();
   const [totalTranscoded, setTotalTranscoded] = useState(0);
-  const { doTranscode, transcodeAllFiles, progress, status } = useTranscoding();
+
+  async function transcodeAllFiles () {
+    for (const { uuid, name, extension, dataURL, gif } of files) {
+      if (!gif) await doTranscode(uuid, `${name}.${extension}`, dataURL);
+    }
+  }
 
   useEffect(() => {
     if (status === PROCESS_DONE) setTotalTranscoded(total => total + 1);
