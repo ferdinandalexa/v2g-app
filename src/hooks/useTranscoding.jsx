@@ -27,6 +27,7 @@ function useTranscoding () {
 
   const restartStates = () => {
     setProcessing(false);
+    setCurrentUuid();
     setStatus(process.pending);
   };
 
