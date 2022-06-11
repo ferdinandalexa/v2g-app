@@ -10,13 +10,13 @@ function useGif () {
   const setGif = (transcodedFile) => {
     const blobGIF = new Blob([transcodedFile.buffer], { type: 'image/gif' });
     const urlBloblGIF = URL.createObjectURL(blobGIF);
-    const upadatedFiles = files.map(file => {
+    const updatedFiles = files.map(file => {
       return file.uuid === currentUuid
         ? Object.assign(file, { gif: urlBloblGIF })
         : file;
     });
 
-    setFiles(upadatedFiles);
+    setFiles(updatedFiles);
   };
 
   return { setGif };

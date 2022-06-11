@@ -9,26 +9,29 @@ const ffmpeg = createFFmpeg({
   corePath: '/js/ffmpeg-core.js'
 });
 
-const PROCESS_DONE = 'Done';
+const process = {
+  pending: 'Pending',
+  loading: 'Loading',
+  transcoding: 'Transcoding',
+  done: 'Done'
+};
 
 function useTranscoding () {
   const { setProcessing, setCurrentUuid } = useContext(ProcessContext);
 
   const { setGif } = useGif();
 
-  const [status, setStatus] = useState('Pending');
+  const [status, setStatus] = useState(process.pending);
   const [transcodedFile, setTrascodedFile] = useState({});
   const [progress, setProgress] = useState(0);
 
   const restartStates = () => {
     setProcessing(false);
-    setCurrentUuid();
-    setProgress(0);
-    setStatus('Pending');
+    setStatus(process.pending);
   };
 
   useEffect(() => {
-    if (status === PROCESS_DONE) {
+    if (status === process.done) {
       setGif(transcodedFile);
       restartStates();
     }
@@ -36,7 +39,7 @@ function useTranscoding () {
 
   async function doTranscode (uuid, filename, objectURL) {
     if (!ffmpeg.isLoaded()) {
-      setStatus('Loading');
+      setStatus(process.loading);
       await ffmpeg.load();
     }
 
@@ -46,14 +49,14 @@ function useTranscoding () {
     ffmpeg.setProgress(({ ratio }) => {
       if (ratio > 0.01) {
         setProgress(ratio);
-        setStatus('Transcoding');
+        setStatus(process.transcoding);
       } else {
         setProgress(0);
       }
 
       if (ratio >= 1) {
         setTrascodedFile(ffmpeg.FS('readFile', 'image.gif'));
-        setStatus('Done');
+        setStatus(process.done);
       }
     });
 
