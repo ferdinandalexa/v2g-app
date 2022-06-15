@@ -54,7 +54,9 @@ function File ({ uuid, name, extension, dataURL, gif }) {
         {
           gif
             ? <Download file={gif} filename={`${name}.gif`} type='image/gif'>Download</Download>
-            : enableTranscode ? display[status] : display.Pending
+            : (uuid === currentUuid && enableTranscode)
+                ? display[status]
+                : display.Pending
         }
       </div>
     </div>
