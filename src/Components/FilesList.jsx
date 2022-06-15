@@ -9,13 +9,11 @@ import TranscodeContext from '../Context/TranscodeContext';
 function FilesList () {
   const [disabled, setDisabled] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
-  const { isProcessing } = useContext(ProcessContext);
-  const { totalTranscoded, transcodeAllFiles, status } = useContext(TranscodeContext);
+  const { totalTranscoded, transcodeAllFiles } = useContext(TranscodeContext);
 
   useEffect(() => {
     files.length > 0 ? setDisabled(false) : setDisabled(true);
-    if (isProcessing || status === 'Loading') setDisabled(true);
-  }, [files, isProcessing, status]);
+  }, [files]);
 
   return (
     <aside className='w-full p-2 overflow-hidden divide-y divide-opacity-30 rounded-xl bg-neutral-800 divide-neutral-700 '>
@@ -39,7 +37,8 @@ function FilesList () {
           }}
           className='flex-auto'
           disabled={disabled || totalTranscoded === files.length}
-        >Convert all
+        >
+          Convert all
         </Button>
         <Button
           onClick={() => { setFiles([]); }}
