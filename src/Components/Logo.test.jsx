@@ -13,7 +13,7 @@ describe('Logo display text', () => {
     expect(screen.getByRole('img')).toHaveAttribute('height', '100%');
   });
 
-  it('Render logo with default values', () => {
+  it('Render logo with the provided values', () => {
     const width = '50px';
     const height = '70px';
     render(<Logo width={width} height={height} />);
