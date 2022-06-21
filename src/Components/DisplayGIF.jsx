@@ -1,4 +1,4 @@
-function DisplayGIF ({ gif, name }) {
+function DisplayGIF ({ gif, name = 'image' }) {
   return (
     <>
       <img src={gif} alt={`GIF from ${name}`} className='object-contain px-1 max-h-96 sm:max-h-80' />

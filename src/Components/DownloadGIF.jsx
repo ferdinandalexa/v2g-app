@@ -1,7 +1,7 @@
 import Download from './Download';
 import DisplayGIF from './DisplayGIF';
 
-function DownloadGIF ({ gif, name }) {
+function DownloadGIF ({ gif, name = 'image' }) {
   return (
     <>
       <DisplayGIF gif={gif} name={name} />
