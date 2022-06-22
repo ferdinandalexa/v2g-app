@@ -12,6 +12,8 @@ V2G app uses [FFMPEG.WASM](https://github.com/ffmpegwasm/ffmpeg.wasm#readme), a 
 - [ ] Multithreading transcode.
 - [ ] Image sequence to gif.
 
+## Related projects
+* [V2G command](https://github.com/ferdinandalexa/v2g-command): Client-side transcode video files to gif format.
 
 ## LICENCE
 [Apache-2.0 license](LICENSE)
