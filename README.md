@@ -1,12 +1,13 @@
-# v2g App
+# V2G App
 
 Client-side transcode video files to gif format.
 
-v2g app uses [FFMPEG.WASM](https://github.com/ffmpegwasm/ffmpeg.wasm#readme), a pure WebAssembly / JavaScript port from [FFmpeg](https://ffmpeg.org).
+V2G app uses [FFMPEG.WASM](https://github.com/ffmpegwasm/ffmpeg.wasm#readme), a pure WebAssembly / JavaScript port from [FFmpeg](https://ffmpeg.org).
 
 ## To-do list
 - [X] Transcode all videos functionality.
 - [X] Routes to preview files.
+- [ ] Testing
 - [ ] PWA.
 - [ ] Multithreading transcode.
 - [ ] Image sequence to gif.
