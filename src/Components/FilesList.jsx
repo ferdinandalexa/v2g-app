@@ -3,7 +3,6 @@ import Button from './Button';
 import { useContext, useEffect, useState } from 'react';
 
 import FilesContext from '../Context/FilesContext';
-import ProcessContext from '../Context/ProcessContext';
 import TranscodeContext from '../Context/TranscodeContext';
 
 function FilesList () {

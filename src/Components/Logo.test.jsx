@@ -8,7 +8,6 @@ describe('Logo display text', () => {
 
     expect(screen.getByRole('img')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('viewBox');
-    // width and height default value: '100%'
     expect(screen.getByRole('img')).toHaveAttribute('width', '100%');
     expect(screen.getByRole('img')).toHaveAttribute('height', '100%');
   });
