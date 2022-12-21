@@ -9,7 +9,7 @@ const PROCESS_DONE = 'Done';
 
 export const TranscodeContextProvider = ({ children }) => {
   const { files } = useContext(FilesContext);
-  const { doTranscode, progress, status } = useTranscoding();
+  const { doTranscode, stopTranscoding, progress, status } = useTranscoding();
   const [totalTranscoded, setTotalTranscoded] = useState(0);
 
   async function transcodeAllFiles () {
@@ -28,6 +28,7 @@ export const TranscodeContextProvider = ({ children }) => {
         totalTranscoded,
         setTotalTranscoded,
         doTranscode,
+        stopTranscoding,
         transcodeAllFiles,
         progress,
         status

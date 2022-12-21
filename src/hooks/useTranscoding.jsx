@@ -5,8 +5,10 @@ import ProcessContext from '../Context/ProcessContext';
 
 import useGif from './useGif';
 
+const ffmpegCoreURL = new URL('/js/ffmpeg-core.js', import.meta.url).href;
+
 const ffmpeg = createFFmpeg({
-  corePath: '/js/ffmpeg-core.js'
+  corePath: ffmpegCoreURL
 });
 
 const process = {
@@ -31,6 +33,11 @@ function useTranscoding () {
     setStatus(process.pending);
   };
 
+  const stopTranscoding = () => {
+    ffmpeg.exit();
+    restartStates();
+  };
+
   useEffect(() => {
     if (status === process.done) {
       setGif(transcodedFile);
@@ -40,8 +47,10 @@ function useTranscoding () {
 
   async function doTranscode (uuid, filename, objectURL) {
     if (!ffmpeg.isLoaded()) {
+      console.log(ffmpeg.isLoaded());
       setStatus(process.loading);
       await ffmpeg.load();
+      console.log(ffmpeg.isLoaded());
     }
 
     setProcessing(true);
@@ -67,7 +76,7 @@ function useTranscoding () {
     await ffmpeg.run('-i', filename, 'image.gif');
   }
 
-  return { transcodedFile, doTranscode, progress, status };
+  return { transcodedFile, doTranscode, stopTranscoding, progress, status };
 }
 
 export default useTranscoding;

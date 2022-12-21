@@ -15,7 +15,7 @@ import ProcessContext from '../Context/ProcessContext';
 function File ({ uuid, name, extension, dataURL, gif }) {
   const { files, setFiles } = useContext(FilesContext);
   const { isProcessing, currentUuid } = useContext(ProcessContext);
-  const { setTotalTranscoded, doTranscode, progress, status } = useContext(TranscodeContext);
+  const { setTotalTranscoded, doTranscode, stopTranscoding, progress, status } = useContext(TranscodeContext);
 
   const [enableTranscode, setEnableTranscode] = useState(true);
 
@@ -33,7 +33,7 @@ function File ({ uuid, name, extension, dataURL, gif }) {
   const display = {
     Pending: <Button onClick={() => doTranscode(uuid, `${name}.${extension}`, dataURL)} disabled={!enableTranscode}>Convert file</Button>,
     Loading: <Button disabled={!enableTranscode}>Loading...</Button>,
-    Transcoding: <ProgressBar done={parseInt(progress * 100)} />,
+    Transcoding: <><ProgressBar done={parseInt(progress * 100)} /> <Button onClick={stopTranscoding} disabled={!enableTranscode}>Stop</Button></>,
     Done: <Download file={gif} filename={`${name}.gif`}>Descargar</Download>
   };
 
