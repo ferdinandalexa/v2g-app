@@ -1,38 +1,24 @@
 import { useContext } from 'react';
 import { Link } from 'wouter';
 
+import DeleteFileButton from './DeleteFileButton';
 import ProcessButton from './ProcessButton';
 import Download from './Download';
 
-import IconDelete from './Icons/IconDelete';
 import IconEye from './Icons/IconEye';
 
 import { FileItemContext } from './File';
-import FilesContext from '../Context/FilesContext';
 import TranscodeContext from '../Context/TranscodeContext';
 import ProcessContext from '../Context/ProcessContext';
 
 function Toolbar () {
-  const { uuid, name, extension, gif } = useContext(FileItemContext);
-  const { files, setFiles } = useContext(FilesContext);
+  const { uuid, name, gif } = useContext(FileItemContext);
   const { isProcessing, currentUuid } = useContext(ProcessContext);
-  const { setTotalTranscoded, status } = useContext(TranscodeContext);
-
-  const deleteFile = () => {
-    setFiles(files.filter(file => file.uuid !== uuid));
-    setTotalTranscoded(total => total - 1);
-  };
+  const { status } = useContext(TranscodeContext);
 
   return (
     <>
-      {((!isProcessing && status !== 'Loading') || uuid !== currentUuid) &&
-        <button
-          onClick={deleteFile}
-          title={`Remove ${name}.${extension} file`}
-          className='inline-block align-middle transition-colors rounded-full w-9 h-9'
-        >
-          <IconDelete className='w-full h-full p-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-red-500 hover:bg-neutral-700' />
-        </button>}
+      {((!isProcessing && status !== 'Loading') || uuid !== currentUuid) && <DeleteFileButton />}
       {gif &&
         <>
           <Link to={`/preview/${uuid}`}>
