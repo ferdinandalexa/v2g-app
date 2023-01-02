@@ -1,4 +1,4 @@
-function Button ({ className, onClick, variant = 'contained', disabled = false, children = 'Click me' }) {
+function Button({ className, onClick, variant = 'contained', disabled = false, children = 'Click me' }) {
   const getVariant = {
     contained: 'border-transparent bg-indigo-500 hover:bg-indigo-600 text-white disabled:bg-neutral-400 disabled:text-neutral-100 ',
     outlined: 'border-indigo-400 hover:border-indigo-500 text-indigo-300 hover:text-indigo-400 bg-transparent disabled:border-neutral-400 disabled:text-neutral-400 '
