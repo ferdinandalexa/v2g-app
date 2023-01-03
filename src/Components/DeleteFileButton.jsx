@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import IconDelete from './Icons/IconDelete';
 
-import { FileItemContext } from './File';
+import { FileItemContext } from './FileItem';
 import FilesContext from '../Context/FilesContext';
 import TranscodeContext from '../Context/TranscodeContext';
 

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import Button from './Button';
 import ProgressBar from './ProgressBar';
 
-import { FileItemContext } from './File';
+import { FileItemContext } from './FileItem';
 import TranscodeContext from '../Context/TranscodeContext';
 
 function ProcessButton ({ status }) {

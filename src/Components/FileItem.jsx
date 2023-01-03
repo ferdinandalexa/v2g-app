@@ -4,7 +4,7 @@ import ToolBar from './ToolBar';
 
 export const FileItemContext = createContext();
 
-function File ({
+function FileItem ({
   uuid,
   name,
   extension,
@@ -23,4 +23,4 @@ function File ({
   );
 }
 
-export default File;
+export default FileItem;

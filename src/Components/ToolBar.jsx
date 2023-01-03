@@ -7,7 +7,7 @@ import Download from './Download';
 
 import IconEye from './Icons/IconEye';
 
-import { FileItemContext } from './File';
+import { FileItemContext } from './FileItem';
 import TranscodeContext from '../Context/TranscodeContext';
 import ProcessContext from '../Context/ProcessContext';
 

@@ -1,4 +1,4 @@
-import File from './File';
+import File from './FileItem';
 import Button from './Button';
 import { useContext, useEffect, useState } from 'react';
 
