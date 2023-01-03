@@ -9,7 +9,7 @@ import { process } from '../utilities/processDict';
 import useGif from './useGif';
 
 function useTranscoding () {
-  const { ffmpeg } = useFFMPEG();
+  const { ffmpeg, stopFFmpeg } = useFFMPEG();
   const { setCurrentUuid } = useContext(ProcessContext);
 
   const { setGif } = useGif();
@@ -23,8 +23,8 @@ function useTranscoding () {
   };
 
   const stopTranscoding = () => {
-    ffmpeg.exit();
     restartStates();
+    stopFFmpeg();
   };
 
   useEffect(() => {
@@ -36,12 +36,12 @@ function useTranscoding () {
 
   async function doTranscode (uuid, filename, objectURL) {
     setCurrentUuid(uuid);
+    setStatus(process.transcoding);
 
     ffmpeg.setProgress(({ ratio }) => {
       if (ratio > 0.01) {
         setProgress(ratio);
       } else {
-        setStatus(process.transcoding);
         setProgress(0);
       }
 

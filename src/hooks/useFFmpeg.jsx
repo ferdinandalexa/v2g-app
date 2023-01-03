@@ -16,7 +16,13 @@ function useFFmpeg () {
     }
   };
 
-  return { loadFFmpeg, ffmpeg, isFFmpegLoaded };
+  const stopFFmpeg = async () => {
+    ffmpeg.exit();
+    setFFmpegLoad(ffmpeg.isLoaded());
+    await loadFFmpeg();
+  };
+
+  return { loadFFmpeg, stopFFmpeg, ffmpeg, isFFmpegLoaded };
 }
 
 export default useFFmpeg;
