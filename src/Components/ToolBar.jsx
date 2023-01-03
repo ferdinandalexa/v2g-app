@@ -28,7 +28,7 @@ function Toolbar () {
               <IconEye className='w-full h-full px-1 transition-colors rounded-full fill-neutral-700 bg-neutral-800 hover:fill-yellow-500 hover:bg-neutral-700 ' />
             </a>
           </Link>
-          <Download file={gif} filename={`${name}.gif`} type='image/gif'>Download</Download>
+          <Download file={gif} filename={`${name}.gif`} type='image/gif' className='px-8 w-max sm:w-48 sm:px-4'>Download</Download>
         </>}
     </>
   );
