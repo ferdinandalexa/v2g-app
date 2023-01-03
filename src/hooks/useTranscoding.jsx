@@ -4,13 +4,9 @@ import { useContext, useState, useEffect } from 'react';
 import ProcessContext from '../Context/ProcessContext';
 import useFFMPEG from './useFFmpeg';
 
-import useGif from './useGif';
+import { process } from '../utilities/processDict';
 
-const process = {
-  pending: 'Pending',
-  transcoding: 'Transcoding',
-  done: 'Done'
-};
+import useGif from './useGif';
 
 function useTranscoding () {
   const { ffmpeg } = useFFMPEG();

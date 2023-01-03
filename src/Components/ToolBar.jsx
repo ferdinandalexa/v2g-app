@@ -11,6 +11,8 @@ import { FileItemContext } from './FileItem';
 import TranscodeContext from '../Context/TranscodeContext';
 import ProcessContext from '../Context/ProcessContext';
 
+import { process } from '../utilities/processDict';
+
 function Toolbar () {
   const { uuid, name, gif } = useContext(FileItemContext);
   const { currentUuid } = useContext(ProcessContext);
@@ -19,7 +21,7 @@ function Toolbar () {
   return (
     <>
       {uuid !== currentUuid && <DeleteFileButton />}
-      {(gif && status !== 'Transcoding') &&
+      {(gif && status !== process.transcoding) &&
         <>
           <Link to={`/preview/${uuid}`}>
             <a className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9'>
@@ -31,7 +33,7 @@ function Toolbar () {
       {
           uuid === currentUuid
             ? <ProcessButton status={status} />
-            : <ProcessButton status='Pending' />
+            : <ProcessButton status={process.pending} />
         }
     </>
   );

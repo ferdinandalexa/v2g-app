@@ -2,10 +2,9 @@ import { useContext, createContext, useEffect, useState } from 'react';
 import useTranscoding from '../hooks/useTranscoding';
 
 import FilesContext from './FilesContext';
+import { process } from '../utilities/processDict';
 
 const TranscodeContext = createContext();
-
-const PROCESS_DONE = 'Done';
 
 export const TranscodeContextProvider = ({ children }) => {
   const { files } = useContext(FilesContext);
@@ -19,7 +18,7 @@ export const TranscodeContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (status === PROCESS_DONE) setTotalTranscoded(total => total + 1);
+    if (status === process.done) setTotalTranscoded(total => total + 1);
   }, [status]);
 
   return (
