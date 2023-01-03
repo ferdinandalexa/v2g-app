@@ -1,4 +1,4 @@
-function Download ({ file, filename = 'image.gif', type, className, children = 'Download' }) {
+function Download ({ file, filename = 'image.gif', type, className = '', children = 'Download' }) {
   return (
     <a
       href={file}
