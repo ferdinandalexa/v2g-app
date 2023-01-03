@@ -4,11 +4,12 @@ import { useContext, useEffect, useState } from 'react';
 
 import FilesContext from '../Context/FilesContext';
 import TranscodeContext from '../Context/TranscodeContext';
+import { process } from '../utilities/processDict';
 
 function FilesList () {
   const [disabled, setDisabled] = useState(false);
   const { files, setFiles } = useContext(FilesContext);
-  const { totalTranscoded, transcodeAllFiles } = useContext(TranscodeContext);
+  const { totalTranscoded, transcodeAllFiles, status } = useContext(TranscodeContext);
 
   useEffect(() => {
     files.length > 0 ? setDisabled(false) : setDisabled(true);
@@ -29,16 +30,7 @@ function FilesList () {
           />
         );
       })}
-      <div className='flex flex-row-reverse items-center justify-center gap-4 px-4 py-2 pt-4'>
-        <Button
-          onClick={async () => {
-            await transcodeAllFiles();
-          }}
-          className='flex-auto'
-          disabled={disabled || totalTranscoded === files.length}
-        >
-          Convert all
-        </Button>
+      <div className='flex flex-row items-center justify-center gap-4 px-4 py-2 pt-4'>
         <Button
           onClick={() => { setFiles([]); }}
           variant='outlined'
@@ -46,6 +38,15 @@ function FilesList () {
           disabled={disabled}
         >
           Remove files
+        </Button>
+        <Button
+          onClick={async () => {
+            await transcodeAllFiles();
+          }}
+          className='flex-auto'
+          disabled={disabled || totalTranscoded.size === files.length || status === process.transcoding}
+        >
+          Convert all
         </Button>
       </div>
     </aside>

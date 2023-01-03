@@ -3,13 +3,15 @@ import useTranscoding from '../hooks/useTranscoding';
 
 import FilesContext from './FilesContext';
 import { process } from '../utilities/processDict';
+import ProcessContext from './ProcessContext';
 
 const TranscodeContext = createContext();
 
 export const TranscodeContextProvider = ({ children }) => {
   const { files } = useContext(FilesContext);
+  const { currentUuid } = useContext(ProcessContext);
   const { doTranscode, stopTranscoding, progress, status } = useTranscoding();
-  const [totalTranscoded, setTotalTranscoded] = useState(0);
+  const [totalTranscoded, setTotalTranscoded] = useState(new Set([]));
 
   async function transcodeAllFiles () {
     for (const { uuid, name, extension, dataURL, gif } of files) {
@@ -18,7 +20,7 @@ export const TranscodeContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (status === process.done) setTotalTranscoded(total => total + 1);
+    if (status === process.done) setTotalTranscoded(total => total.add(currentUuid));
   }, [status]);
 
   return (
