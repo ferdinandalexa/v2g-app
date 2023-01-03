@@ -21,7 +21,7 @@ function Toolbar () {
   return (
     <>
       {uuid !== currentUuid && <DeleteFileButton />}
-      {(gif && status !== process.transcoding) &&
+      {(gif && (status !== process.transcoding || uuid !== currentUuid)) &&
         <>
           <Link to={`/preview/${uuid}`}>
             <a className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9'>
