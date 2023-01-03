@@ -13,13 +13,13 @@ import ProcessContext from '../Context/ProcessContext';
 
 function Toolbar () {
   const { uuid, name, gif } = useContext(FileItemContext);
-  const { isProcessing, currentUuid } = useContext(ProcessContext);
+  const { currentUuid } = useContext(ProcessContext);
   const { status } = useContext(TranscodeContext);
 
   return (
     <>
-      {((!isProcessing && status !== 'Loading') || uuid !== currentUuid) && <DeleteFileButton />}
-      {gif &&
+      {uuid !== currentUuid && <DeleteFileButton />}
+      {(gif && status !== 'Transcoding') &&
         <>
           <Link to={`/preview/${uuid}`}>
             <a className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9'>

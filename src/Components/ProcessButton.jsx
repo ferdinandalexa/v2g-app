@@ -12,8 +12,12 @@ function ProcessButton ({ status }) {
 
   const display = {
     Pending: <Button onClick={() => doTranscode(uuid, `${name}.${extension}`, dataURL)}>Convert file</Button>,
-    Loading: <Button>Loading...</Button>,
-    Transcoding: <><ProgressBar done={parseInt(progress * 100)} /> <Button onClick={stopTranscoding}>Stop</Button></>
+    Transcoding: (
+      <>
+        <ProgressBar done={parseInt(progress * 100)} />
+        <Button onClick={stopTranscoding}>Stop</Button>
+      </>
+    )
   };
 
   return display[status];

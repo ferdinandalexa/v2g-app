@@ -1,5 +1,5 @@
 import { fetchFile } from '@ffmpeg/ffmpeg';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import ProcessContext from '../Context/ProcessContext';
 import useFFMPEG from './useFFmpeg';
@@ -8,23 +8,20 @@ import useGif from './useGif';
 
 const process = {
   pending: 'Pending',
-  loading: 'Loading',
   transcoding: 'Transcoding',
   done: 'Done'
 };
 
 function useTranscoding () {
   const { ffmpeg } = useFFMPEG();
-  const { setProcessing, setCurrentUuid } = useContext(ProcessContext);
+  const { setCurrentUuid } = useContext(ProcessContext);
 
   const { setGif } = useGif();
 
   const [status, setStatus] = useState(process.pending);
-  const [transcodedFile, setTrascodedFile] = useState({});
   const [progress, setProgress] = useState(0);
 
   const restartStates = () => {
-    setProcessing(false);
     setCurrentUuid();
     setStatus(process.pending);
   };
@@ -36,13 +33,12 @@ function useTranscoding () {
 
   useEffect(() => {
     if (status === process.done) {
-      setGif(transcodedFile);
+      setGif(ffmpeg.FS('readFile', 'image.gif'));
       restartStates();
     }
   }, [status]);
 
   async function doTranscode (uuid, filename, objectURL) {
-    setProcessing(true);
     setCurrentUuid(uuid);
 
     ffmpeg.setProgress(({ ratio }) => {
@@ -53,10 +49,7 @@ function useTranscoding () {
         setProgress(0);
       }
 
-      if (ratio >= 1) {
-        setTrascodedFile(ffmpeg.FS('readFile', 'image.gif'));
-        setStatus(process.done);
-      }
+      if (ratio >= 1) { setStatus(process.done); }
     });
 
     const fileBinaryData = await fetchFile(objectURL);
