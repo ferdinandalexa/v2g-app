@@ -9,19 +9,19 @@ import IconEye from './Icons/IconEye';
 
 import { FileItemContext } from './FileItem';
 import TranscodeContext from '../Context/TranscodeContext';
-import ProcessContext from '../Context/ProcessContext';
 
 import { process } from '../utilities/processDict';
 
 function Toolbar () {
-  const { uuid, name, gif } = useContext(FileItemContext);
-  const { currentUuid } = useContext(ProcessContext);
+  const { uuid, name, gif, isProcessing } = useContext(FileItemContext);
   const { status } = useContext(TranscodeContext);
 
   return (
     <>
-      {uuid !== currentUuid && <DeleteFileButton />}
-      {(gif && (status !== process.transcoding || uuid !== currentUuid)) &&
+      {isProcessing
+        ? <ProcessButton status={status} />
+        : <> <DeleteFileButton /> <ProcessButton status={process.pending} /> </>}
+      {(gif && (status !== process.transcoding || !isProcessing)) &&
         <>
           <Link to={`/preview/${uuid}`}>
             <a className='inline-block mr-1 align-middle transition-colors rounded-full h-9 w-9'>
@@ -30,11 +30,6 @@ function Toolbar () {
           </Link>
           <Download file={gif} filename={`${name}.gif`} type='image/gif'>Download</Download>
         </>}
-      {
-          uuid === currentUuid
-            ? <ProcessButton status={status} />
-            : <ProcessButton status={process.pending} />
-        }
     </>
   );
 }
