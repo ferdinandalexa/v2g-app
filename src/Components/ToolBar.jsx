@@ -20,7 +20,7 @@ function Toolbar () {
     <>
       {isProcessing
         ? <ProcessButton status={status} />
-        : <> <DeleteFileButton /> <ProcessButton status={process.pending} /> </>}
+        : <> <DeleteFileButton /> <ProcessButton status={gif ? process.redo : process.pending} /> </>}
       {(gif && (status !== process.transcoding || !isProcessing)) &&
         <>
           <Link to={`/preview/${uuid}`}>

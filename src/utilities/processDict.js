@@ -1,5 +1,6 @@
 export const process = {
   pending: 'Pending',
   transcoding: 'Transcoding',
-  done: 'Done'
+  done: 'Done',
+  redo: 'Redo'
 };

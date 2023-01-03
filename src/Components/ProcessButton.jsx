@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import Button from './Button';
+import RedoButton from './RedoButton';
 import ProgressBar from './ProgressBar';
 
 import { FileItemContext } from './FileItem';
@@ -17,7 +18,8 @@ function ProcessButton ({ status }) {
         <ProgressBar done={parseInt(progress * 100)} />
         <Button onClick={stopTranscoding}>Stop</Button>
       </>
-    )
+    ),
+    Redo: <RedoButton>Convert file</RedoButton>
   };
 
   return display[status];
