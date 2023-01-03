@@ -1,15 +1,10 @@
+import { fetchFile } from '@ffmpeg/ffmpeg';
 import { useContext, useEffect, useState } from 'react';
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 
 import ProcessContext from '../Context/ProcessContext';
+import useFFMPEG from './useFFmpeg';
 
 import useGif from './useGif';
-
-const ffmpegCoreURL = new URL('/js/ffmpeg-core.js', import.meta.url).href;
-
-const ffmpeg = createFFmpeg({
-  corePath: ffmpegCoreURL
-});
 
 const process = {
   pending: 'Pending',
@@ -19,6 +14,7 @@ const process = {
 };
 
 function useTranscoding () {
+  const { ffmpeg } = useFFMPEG();
   const { setProcessing, setCurrentUuid } = useContext(ProcessContext);
 
   const { setGif } = useGif();
@@ -46,21 +42,14 @@ function useTranscoding () {
   }, [status]);
 
   async function doTranscode (uuid, filename, objectURL) {
-    if (!ffmpeg.isLoaded()) {
-      console.log(ffmpeg.isLoaded());
-      setStatus(process.loading);
-      await ffmpeg.load();
-      console.log(ffmpeg.isLoaded());
-    }
-
     setProcessing(true);
     setCurrentUuid(uuid);
 
     ffmpeg.setProgress(({ ratio }) => {
       if (ratio > 0.01) {
         setProgress(ratio);
-        setStatus(process.transcoding);
       } else {
+        setStatus(process.transcoding);
         setProgress(0);
       }
 
@@ -76,7 +65,7 @@ function useTranscoding () {
     await ffmpeg.run('-i', filename, 'image.gif');
   }
 
-  return { transcodedFile, doTranscode, stopTranscoding, progress, status };
+  return { doTranscode, stopTranscoding, progress, status };
 }
 
 export default useTranscoding;

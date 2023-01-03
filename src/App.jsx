@@ -7,8 +7,12 @@ import NotFoundGIF from './Components/NotFoundGIF';
 import Footer from './Components/Footer';
 
 import Transcode from './Containers/Transcode';
+import useFFmpeg from './hooks/useFFmpeg';
 
 function App () {
+  const { loadFFmpeg } = useFFmpeg();
+  loadFFmpeg();
+
   return (
     <div className='h-full max-w-screen-md mx-auto'>
       <Header />
