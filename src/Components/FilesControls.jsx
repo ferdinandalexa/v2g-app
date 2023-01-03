@@ -1,7 +1,7 @@
 import FilesUploader from './FilesUploader';
 import FilesList from './FilesList';
 
-function Body () {
+function FileControls () {
   return (
     <>
       <FilesUploader />
@@ -10,4 +10,4 @@ function Body () {
   );
 }
 
-export default Body;
+export default FileControls;

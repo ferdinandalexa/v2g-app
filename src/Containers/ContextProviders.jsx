@@ -2,7 +2,7 @@ import { FilesContextProvider } from '../Context/FilesContext';
 import { TranscodeContextProvider } from '../Context/TranscodeContext';
 import { ProcessContextProvider } from '../Context/ProcessContext';
 
-function Transcode ({ children }) {
+function ContextProviders ({ children }) {
   return (
     <FilesContextProvider>
       <ProcessContextProvider>
@@ -14,4 +14,4 @@ function Transcode ({ children }) {
   );
 }
 
-export default Transcode;
+export default ContextProviders;
